@@ -1,6 +1,6 @@
-const weakMap = new WeakMap();
+export const weakMap = new WeakMap();
 
-function queryAPI(endpoint) {
+export function queryAPI(endpoint) {
   if (!weakMap.has(endpoint)) {
     weakMap.set(endpoint, 1);
   } else {
@@ -11,5 +11,3 @@ function queryAPI(endpoint) {
     weakMap.set(endpoint, count + 1);
   }
 }
-
-export { weakMap, queryAPI };
