@@ -1,6 +1,1 @@
-node_modules
-.eslintrc.js
-babel.config.js
-*.json
-*-main.js
-webpack.config.js
+node_modules/
