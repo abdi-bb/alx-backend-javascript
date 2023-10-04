@@ -3,3 +3,4 @@ node_modules
 babel.config.js
 *.json
 *-main.js
+webpack.config.js
