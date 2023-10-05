@@ -43,3 +43,5 @@ interface StudentConstructor {
       return this.firstName;
     }
   };
+
+  export { printTeacher, StudentClass };
