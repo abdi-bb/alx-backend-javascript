@@ -10,6 +10,6 @@ process.stdin.on('data', (input) => {
   }
 });
 
-process.stdin.on('end', () => {
+process.stdin.on('close', () => {
   console.log('This important software is now closing');
 });
