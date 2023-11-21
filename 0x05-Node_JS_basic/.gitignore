@@ -1,6 +1,2 @@
-babel.config.js
-database.csv
-package.json
-.eslintrc.js
 node_modules/
 *-main.js
