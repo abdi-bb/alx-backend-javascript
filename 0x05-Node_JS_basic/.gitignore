@@ -4,4 +4,4 @@ babel.config.js
 .eslintrc.js
 node_modules/
 database.csv
-*-main.js
+*-main*
