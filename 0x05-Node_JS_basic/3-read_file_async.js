@@ -2,39 +2,45 @@ const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf-8', (err, data) => {
+    fs.readFile(path, 'utf8', (err, data) => {
       if (err) {
-        reject(new Error('Cannot load the database'));
-        return;
-      }
+        reject(new Error(`Cannot load the database: ${err}`));
+      } else {
+        const lines = data.split('\n').filter((line) => line !== '');
 
-      const lines = data.trim().split('\n');
+        const fields = {};
+        let total = 0;
 
-      let csCount = 0;
-      let sweCount = 0;
-
-      const csNames = [];
-      const sweNames = [];
-
-      lines.forEach((line) => {
-        const [firstname, , , field] = line.split(',');
-
-        if (firstname && field) {
-          if (field.trim() === 'CS') {
-            csCount += 1;
-            csNames.push(firstname.trim());
-          } else if (field.trim() === 'SWE') {
-            sweCount += 1;
-            sweNames.push(firstname.trim());
+        lines.forEach((line, index) => {
+          // Skip the header line
+          if (index === 0) {
+            return;
           }
-        }
-      });
 
-      console.log(`Number of students: ${csCount + sweCount}`);
-      console.log(`Number of students in CS: ${csCount}. List: ${csNames.join(', ')}`);
-      console.log(`Number of students in SWE: ${sweCount}. List: ${sweNames.join(', ')}`);
+          const student = line.split(',');
+          const field = student[3];
 
-      resolve();
+          if (field in fields) {
+            fields[field].push(student[0]);
+          } else {
+            fields[field] = [student[0]];
+          }
+
+          total += 1;
+        });
+
+        console.log(`Number of students: ${total}`);
+
+        Object.keys(fields).forEach((field) => {
+          const students = fields[field];
+          const count = students.length;
+          const list = students.join(', ');
+
+          console.log(`Number of students in ${field}: ${count}. List: ${list}`);
+        });
+
+        resolve();
+      }
     });
   });
 }
